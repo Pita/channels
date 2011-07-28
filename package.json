@@ -1,0 +1,7 @@
+{
+  "name"          : "channels",
+  "description"   : "Event channels in node.js",
+  "keywords"      : ["async", "flow control"],
+  "author"        : "Peter 'Pita' Martischka <petermartischka@googlemail.com>",
+  "version"       : "0.0.1"
+}
