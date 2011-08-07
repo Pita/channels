@@ -23,7 +23,7 @@ exports.channels = function(operatorFunction)
 exports.channels.prototype.emit = function(channelname, object)
 {
   var _this = this;
-
+  
   //this channel already exists, add it to the queue
   if(_this.channels[channelname])
   {
@@ -32,24 +32,22 @@ exports.channels.prototype.emit = function(channelname, object)
   //this channel is new, create it and start it
   else
   {
-    _this.channels[channelname] = [object];
+    //create the channel array
+    _this.channels[channelname] = [];
     
-    _this.operatorFunction(object, function(err)
+    _this.operatorFunction(object, function iterator()
     {
-      if(err) throw err;
-      
-      //remove the element from the queue
-      _this.channels[channelname].shift();
+      //get the next element
+      var next = _this.channels[channelname].shift();
       
       //if there is nothing todo anymore in this channel, clean it up
-      if(_this.channels[channelname].length == 0)
+      if(next !== undefined)
       {
-        delete _this.channels[channelname];
+        _this.operatorFunction(next, iterator);
       }
-      //else start the operatorFunction with the next object
       else
       {
-        _this.operatorFunction(_this.channels[channelname][0], arguments.callee);
+        delete _this.channels[channelname];
       }
     });
   }
