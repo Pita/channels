@@ -4,5 +4,5 @@
   "keywords"      : ["async", "flow control"],
   "author"        : "Peter 'Pita' Martischka <petermartischka@googlemail.com>",
   "main"          : "channels.js",
-  "version"       : "0.0.2"
+  "version"       : "0.0.3"
 }
