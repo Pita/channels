@@ -13,6 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+var domain;
+try {
+  domain = require('domain');
+} catch(){
+  //domains only exist in 0.8+
+}
  
 exports.channels = function(operatorFunction)
 {
@@ -27,6 +34,10 @@ exports.channels.prototype.emit = function(channelname, object)
   //this channel already exists, add it to the queue
   if(_this.channels[channelname])
   {
+    if(domain && domain.active){
+      object.__domain = domain.active;
+    }
+
     _this.channels[channelname].push(object);
   }
   //this channel is new, create it and start it
@@ -43,7 +54,17 @@ exports.channels.prototype.emit = function(channelname, object)
       //if there is nothing todo anymore in this channel, clean it up
       if(next !== undefined)
       {
-        _this.operatorFunction(next, iterator);
+        // if this method has a domain, call it in the domain
+        if(next.__domain){
+          var activeDomain = next.__domain;
+          delete next.__domain;
+
+          activeDomain.run(function(){
+            _this.operatorFunction(next, iterator);
+          });
+        } else {
+          _this.operatorFunction(next, iterator);
+        }
       }
       else
       {
