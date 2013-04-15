@@ -17,7 +17,7 @@
 var domain;
 try {
   domain = require('domain');
-} catch(){
+} catch(e){
   //domains only exist in 0.8+
 }
  
