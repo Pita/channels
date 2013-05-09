@@ -1,3 +1,11 @@
+# Channels
+
+Channels keeps your messages in order for different endpoints(channels) of your nodeJS application.
+
+In Etherpad Channels is used to ensure changes for specific pads have their own channel (gateway) and changesets (planes) are assigned to specific channels (gateways).
+
+Channels is useful if you need to have lots of different IO operations on different endpoints that you need to keep in order.
+
 # Example
 
 ```js
