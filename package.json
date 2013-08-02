@@ -4,5 +4,9 @@
   "keywords"      : ["async", "flow control"],
   "author"        : "Peter 'Pita' Martischka <petermartischka@googlemail.com>",
   "main"          : "channels.js",
+  "repository"    : {
+    "type" : "git",
+    "url" : "https://github.com/Pita/channels"
+  },
   "version"       : "0.0.4"
 }
